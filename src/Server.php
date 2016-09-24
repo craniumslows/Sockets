@@ -141,6 +141,7 @@ class Server
     public function __destruct()
     {
         $this->masterSocket->close();
+        unset($this->masterSocket);
     }
 
     /**
@@ -314,7 +315,6 @@ class Server
             }
             unset($k);
         }
-
         $this->hooks[$command][] = $callable;
     }
 
@@ -346,7 +346,9 @@ class Server
     {
         foreach ($this->clients as $client) {
             $this->disconnect($client);
+            unset($client);
         }
         $this->masterSocket->close();
+        unset($this->masterSocket);
     }
 }
